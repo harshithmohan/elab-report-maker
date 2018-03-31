@@ -86,15 +86,8 @@ def gen_report(username, password, elabx, level):
 		
 					if(elab['key'] == 'daa'):
 			
-							evaluate_payload_c = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'c'})
-							evaluate_payload_cpp = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'cpp'})
-							evaluate_payload_java = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'java'})
-							evaluate_payload_python = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'python'})
-		
-							if '100' in [evaluate_payload_c.text[-4:-1], evaluate_payload_cpp.text[-4:-1], evaluate_payload_java.text[-4:-1], evaluate_payload_python.text[-4:-1]]:
-								complete_percent = '100'
-							else:
-								complete_percent = '0'
+						evaluate_payload = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'cpp'})
+						complete_percent = evaluate_payload.text[-4:-1]
 			
 					else:
 						evaluate_payload = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': ''})
@@ -139,11 +132,11 @@ def gen_report(username, password, elabx, level):
 
 		# remove the image files
 	
-		for i in range(0, 100):
+		'''for i in range(0, 100):
 			if(os.path.isfile(payload['uname'] + '-' + str(i).zfill(3) + '.png')):
 				os.remove(payload['uname'] + '-' + str(i).zfill(3) + '.png')
 	
-		print('Image files cleared')
+		print('Image files cleared')'''
 
 		return filename
 
@@ -207,17 +200,10 @@ def gen_report_all(username, password, elabx):
 					if(code.text != ''):
 			
 						if(elab['key'] == 'daa'):
-				
-								evaluate_payload_c = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'c'})
-								evaluate_payload_cpp = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'cpp'})
-								evaluate_payload_java = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'java'})
-								evaluate_payload_python = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'python'})
 			
-								if '100' in [evaluate_payload_c.text[-4:-1], evaluate_payload_cpp.text[-4:-1], evaluate_payload_java.text[-4:-1], evaluate_payload_python.text[-4:-1]]:
-									complete_percent = '100'
-								else:
-									complete_percent = '0'
-				
+							evaluate_payload = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'cpp'})
+							complete_percent = evaluate_payload.text[-4:-1]
+			
 						else:
 							evaluate_payload = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': ''})
 							complete_percent = evaluate_payload.text[-4:-1]
@@ -261,11 +247,11 @@ def gen_report_all(username, password, elabx):
 
 		# remove the image files
 	
-		for level in range(1,4):
+		'''for level in range(1,4):
 			for i in range(0, 100):
 				if(os.path.isfile(payload['uname'] + '-' + str(i//10) + '-' + str(level) + '-' + str(i).zfill(3) + '.png')):
 					os.remove(payload['uname'] + '-' + str(i//10) + '-' + str(level) + '-' + str(i).zfill(3) + '.png')
 	
-		print('Image files cleared')
+		print('Image files cleared')'''
 
 		return filename
