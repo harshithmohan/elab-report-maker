@@ -220,7 +220,7 @@ def gen_report_all(username, password, elabx):
 				
 						else:
 
-							if evaluate_payload.text.lower().find('score')==-1 and evaluate_payload.text.lower().find('exception')==-1 and evaluate_payload.text.lower()[60:].find('error')==-1:
+							if evaluate_payload.text.lower().find('score')==-1 and evaluate_payload.text.lower().find('exception')==-1 and evaluate_payload.text.lower()[60:].find('error')==-1 and evaluate_payload.text.lower().find('Command failed')!=-1:
 								print(str(i + 1) + ' : Error... Trying again')
 								i-=1;
 							
